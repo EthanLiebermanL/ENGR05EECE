@@ -11,18 +11,18 @@ void main(void)
 WDTCTL = WDTPW | WDTHOLD;
 P1OUT &= ~BIT0;  //p1.0 red led
 P1DIR |= BIT0;
-/*
+
 P6DIR |= BIT6;
-P6OUT &= ~BIT6; //p6.6 greenled*/
+P6OUT &= ~BIT6; //p6.6 greenled
 
 
 P4DIR &= ~BIT1;//clear P4.1(s1)
 P4REN |= BIT1;//Enable pull up/down resistor
 P4OUT |= BIT1;//Make resistor a pull up
 
-/*P2DIR &= ~BIT3;//clear P2.3(s2)
+P2DIR &= ~BIT3;//clear P2.3(s2)
 P2REN |= BIT3;//Enable pull up/down resistor
-P2OUT |= BIT3;//Make resistor a pull up*/
+P2OUT |= BIT3;//Make resistor a pull up
 
 
 
@@ -36,5 +36,12 @@ while(1){
             P1OUT ^= RED_LED;
             } while((P4IN & BUTTON1) == 0x00);
         }
+
+        if((P2IN & BUTTON2) == 0x00){
+                _delay_cycles(5000);
+                if((P2IN & BUTTON2) == 0x00){
+                    P6OUT ^= GREEN_LED;
+                    } while((P2IN & BUTTON2) == 0x00);
+                }
 }
 }
